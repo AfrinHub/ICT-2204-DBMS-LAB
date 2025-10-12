@@ -1,0 +1,238 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE USER_INFORMATION;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE USER_INFORMATION;
+Database changed
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| cust                   |
+| stu                    |
+| student                |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> USE USER_INFORMATION;
+Database changed
+mysql> CREATE TABLE STUDENT(
+    -> STUDENT_ID INT,
+    -> STUDENT_CODE VARCHAR(5),
+    -> STUDENT_NAME VARCHAR(20),
+    -> STUDENT_AGE TINYINT,
+    -> SEMESTER VARCHAR(5),
+    -> PRIMARY KEY (STUDENT_ID,STUDENT_CODE)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT( STUDENT_ID,STUDENT_CODE,STUDENT_NAME,STUDENT_AGE,SEMESTER)
+    -> VALUES(1,101,'TAHRIMA',22,'2ND'),
+    -> VALUES(2,102,'TOMA',21,'2ND');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUES(2,102,'TOMA',21,'2ND')' at line 3
+mysql> DESC STUDENT;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_ID   | int         | NO   | PRI | NULL    |       |
+| STUDENT_CODE | varchar(5)  | NO   | PRI | NULL    |       |
+| STUDENT_NAME | varchar(20) | YES  |     | NULL    |       |
+| STUDENT_AGE  | tinyint     | YES  |     | NULL    |       |
+| SEMESTER     | varchar(5)  | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE USERTYPE(
+    -> UT_ID INT PRIMARY KEY,
+    -> U_TYPE VARCHAR(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC USERTYPE;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| UT_ID  | int         | NO   | PRI | NULL    |       |
+| U_TYPE | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE USER(
+    -> U_ID INT PRIMARY KEY,
+    -> USER_NAME VARCHAR(20) NOT NULL,
+    -> DOB DATE,
+    -> UT_ID INT
+    -> 
+    -> 
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DROP TABLE USER;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE USER( U_ID INT PRIMARY KEY, USER_NAME VARCHAR(20) NOT NULL, DOB DATE,UT_ID INT,CONSTRAINT FK_UT_ID FOREIGN KEY(UT_ID) REFERENCES USERTYPE(UT_ID));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> DESC USER;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| U_ID      | int         | NO   | PRI | NULL    |       |
+| USER_NAME | varchar(20) | NO   |     | NULL    |       |
+| DOB       | date        | YES  |     | NULL    |       |
+| UT_ID     | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT TABLE USERTYPE(UT_ID, U_TYPE) VALUES(1,'ADMIN'),(1,'STUDENT'),(3,'TEACHER'),(4,'STAFF');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE USERTYPE(UT_ID, U_TYPE) VALUES(1,'ADMIN'),(1,'STUDENT'),(3,'TEACHER'),(4,'' at line 1
+mysql> INSERT TABLE USERTYPE(UT_ID, U_TYPE) VALUES(1,'ADMIN'),(1,'STUDENT'),(3,'TEACHER'),(4,'STAFF');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE USERTYPE(UT_ID, U_TYPE) VALUES(1,'ADMIN'),(1,'STUDENT'),(3,'TEACHER'),(4,'' at line 1
+mysql> INSERT INTO USERTYPE(UT_ID,U_TYPE) VALUES(1,'ADMIN');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO USERTYPE(UT_ID,U_TYPE) VALUES(2,'STUDENT');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO USERTYPE(UT_ID,U_TYPE) VALUES(3,'TEACHER');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO USERTYPE(UT_ID,U_TYPE) VALUES(4,'STAFF');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO USERTYPE(U_ID,USER_NAME,DOB,UT_ID) VALUES(101,'TAHRIMA','2001-12-25',1);
+ERROR 1054 (42S22): Unknown column 'U_ID' in 'field list'
+mysql> INSERT INTO USER(U_ID,USER_NAME,DOB,UT_ID) VALUES(101,'TAHRIMA','2001-12-25',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO USER(U_ID,USER_NAME,DOB,UT_ID) VALUES(102,'TAWBA','2002-02-05',2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO USER(U_ID,USER_NAME,DOB,UT_ID) VALUES(103,'ABC','2002-04-05',5);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`user_information`.`user`, CONSTRAINT `FK_UT_ID` FOREIGN KEY (`UT_ID`) REFERENCES `usertype` (`UT_ID`))
+mysql> CREATE TABLE CUSTOMER( CUST_ID INT PRIMARY KEY, CUST_NAME VARCHAR(20) NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO CUSTOMER(CUST_ID,CUST_NAME) VALUES(1,'ABC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER(CUST_ID,CUST_NAME) VALUES(2,'XYZ');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER(CUST_ID,CUST_NAME) VALUES(3,'EFG');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE SELLER( S_ID INT PRIMARY KEY, S_NAME VARCHAR(20) NOT NULL,FOREIGN KEY(CUST_ID) REFERENCES (CUST_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(CUST_ID))' at line 1
+mysql> CREATE TABLE SELLER( S_ID INT PRIMARY KEY, S_NAME VARCHAR(20) NOT NULL,FOREIGN KEY(CUST_ID) REFERENCES CUSTOMER (CUST_ID));
+ERROR 1072 (42000): Key column 'CUST_ID' doesn't exist in table
+mysql> CREATE TABLE SELLER( 
+    -> S_ID INT PRIMARY KEY,
+    -> S_NAME VARCHAR(10),
+    -> CUST_ID INT,
+    -> CONSTRAINT fk_CUST_id FOREIGN KEY (CUST_ID) REFERENCES CUSTOMER (CUST_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO SELLER (S_ID,S_NAME, CUST_ID) VALUES(101,'TAHRIMA',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO SELLER (S_ID,S_NAME, CUST_ID) VALUES(102,'TISHA',4);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`user_information`.`seller`, CONSTRAINT `fk_CUST_id` FOREIGN KEY (`CUST_ID`) REFERENCES `customer` (`CUST_ID`))
+mysql> CREATE TABLE TEST1( TEST_ID INT, TEST_NAME VARCHAR(20),AGE SMALLINT,CHECK(AGE>=18));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEST1 (TEST_ID,TEST_NAME, AGE) VALUES(102,'TISHA',20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEST1 (TEST_ID,TEST_NAME, AGE) VALUES(103,'TAWBA',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEST1 (TEST_ID,TEST_NAME, AGE) VALUES(103,'SADIKA',15);
+ERROR 3819 (HY000): Check constraint 'test1_chk_1' is violated.
+mysql> DROP TABLE TEST1; 
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE TEST1( TEST_ID INT, TEST_NAME VARCHAR(20) DEFAULT 'TAHRIMA',AGE SMALLINT,CHECK(AGE>=18),TEST_DATE DATETIME DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEST1 (TEST_ID, AGE) VALUES(101,21);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO TEST1 (TEST_ID, AGE) VALUES(101,21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEST1 (TEST_ID, AGE) VALUES(103,22);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC TEST1;
++-----------+-------------+------+-----+-------------------+-------------------+
+| Field     | Type        | Null | Key | Default           | Extra             |
++-----------+-------------+------+-----+-------------------+-------------------+
+| TEST_ID   | int         | YES  |     | NULL              |                   |
+| TEST_NAME | varchar(20) | YES  |     | TAHRIMA           |                   |
+| AGE       | smallint    | YES  |     | NULL              |                   |
+| TEST_DATE | datetime    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-----------+-------------+------+-----+-------------------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM TEST1;
++---------+-----------+------+---------------------+
+| TEST_ID | TEST_NAME | AGE  | TEST_DATE           |
++---------+-----------+------+---------------------+
+|     101 | TAHRIMA   |   21 | 2025-10-12 12:14:00 |
+|     101 | TAHRIMA   |   21 | 2025-10-12 12:14:06 |
+|     103 | TAHRIMA   |   22 | 2025-10-12 12:14:20 |
++---------+-----------+------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE CUST;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE TEST( TEST_ID INT, TEST_NAME VARCHAR(20),SALLARY INT DEFAULT 220000,AGE SMALLINT,CHECK(AGE>=18),TEST_DATE DATETIME DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEST (TEST_ID,TEST_NAME, AGE) VALUES(101,'ABC',32);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEST (TEST_ID,TEST_NAME, AGE) VALUES(102,'XYZ',34);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEST (TEST_ID,TEST_NAME, AGE) VALUES(103,'TOMA',22);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEST (TEST_ID,TEST_NAME, AGE) VALUES(104,'AFRIN',36);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO TEST (TEST_ID,TEST_NAME, AGE) VALUES(105,'ABIDA',18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM TEST;
++---------+-----------+---------+------+---------------------+
+| TEST_ID | TEST_NAME | SALLARY | AGE  | TEST_DATE           |
++---------+-----------+---------+------+---------------------+
+|     101 | ABC       |  220000 |   32 | 2025-10-12 12:19:42 |
+|     102 | XYZ       |  220000 |   34 | 2025-10-12 12:20:19 |
+|     103 | TOMA      |  220000 |   22 | 2025-10-12 12:20:38 |
+|     104 | AFRIN     |  220000 |   36 | 2025-10-12 12:21:10 |
+|     105 | ABIDA     |  220000 |   18 | 2025-10-12 12:21:33 |
++---------+-----------+---------+------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> NO TEE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NO TEE' at line 1
+mysql> no tee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'no tee' at line 1
+mysql> notee;
