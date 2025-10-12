@@ -1,0 +1,165 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> notee
+mysql> CREATE DATABASE IIT14THBATCH;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> CREATE TABLE STUDENT(STUDENT_ID INT,STUDENT_NAME VARCHAR(30),SESSION VARCHAR(10),CGPA FLOAT(5,2),GENDER VARCHAR(7),MOBILEPHONE VARCHAR(15),EMAIL VARCHAR(15),DOB DATE);
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| student                |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> DESC STUDENT;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_ID   | int         | YES  |     | NULL    |       |
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| SESSION      | varchar(10) | YES  |     | NULL    |       |
+| CGPA         | float(5,2)  | YES  |     | NULL    |       |
+| GENDER       | varchar(7)  | YES  |     | NULL    |       |
+| MOBILEPHONE  | varchar(15) | YES  |     | NULL    |       |
+| EMAIL        | varchar(15) | YES  |     | NULL    |       |
+| DOB          | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> CREATE TABLE CUST(CUST_ID INT NOT NULL,CUST_NAME VARCHAR(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES(1,'ASD');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|       1 | ASD       |
++---------+-----------+
+1 row in set (0.00 sec)
+
+mysql>  INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES(,'ASD');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','ASD')' at line 1
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM CUST;
+ERROR 1146 (42S02): Table 'iit14thbatch.cust' doesn't exist
+mysql> CREATE TABLE CUST(CUST_ID INT UNIQUE,CUST_NAME VARCHAR(10));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES(10,'ASD');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE CUST(CUST_ID INT,CUST_NAME VARCHAR(10),UNIQUE(CUST_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES(1,'ASD');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE CUST(CUST_ID INT,CUST_NAME VARCHAR(10),CONSTRAINT uc_cust_id UNIQUE(CUST_ID));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>  INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES(2,'ADS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC CUST;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| CUST_ID   | int         | YES  | UNI | NULL    |       |
+| CUST_NAME | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PERSON;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE PERSON(PERSON_ID INT NOT NULL, CUST_NAME VARCHAR(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO PERSON (PERSON_ID,PERSON_NAME) VALUES(10,'TOMA');
+ERROR 1054 (42S22): Unknown column 'PERSON_NAME' in 'field list'
+mysql> DROP TABLE PERSON;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE PER(PER_ID INT,PER_NAME VARCHAR(10),NOT NULL(PER_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL(PER_ID))' at line 1
+mysql>  DROP TABLE PERSON;
+ERROR 1051 (42S02): Unknown table 'iit14thbatch.person'
+mysql> DROP TABLE PER;
+ERROR 1051 (42S02): Unknown table 'iit14thbatch.per'
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| cust                   |
+| student                |
++------------------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE STU(STU_ID INT PRIMARY KEY,STU_NAME VARCHAR(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO STU(STU_ID,STU_NAME) VALUES(1,'ASD');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DROP TABLE STU;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE STU(STU_ID INT,STU_NAME VARCHAR(10),PRIMARY KEY(STU_ID));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  INSERT INTO STU(STU_ID,STU_NAME) VALUES(1,'ASD');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DROP TABLE STU;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE STU(STU_ID INT ,STU_NAME VARCHAR(10),CONSTRAINT uc_stu_id PRIMARY KEY(STU_ID));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  INSERT INTO STU(STU_ID,STU_NAME) VALUES(1,'ASD');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO STU(STU_ID,STU_NAME) VALUES(1,'ASD');
+ERROR 1062 (23000): Duplicate entry '1' for key 'stu.PRIMARY'
+mysql> notee;
