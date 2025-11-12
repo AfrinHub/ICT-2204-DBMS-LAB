@@ -1,0 +1,130 @@
+mysql> no tee
+    -> 
+    -> NOTEE
+    -> notee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'no tee
+
+NOTEE
+notee' at line 1
+mysql> notee;
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user_information   |
+| world              |
++--------------------+
+8 rows in set (0.07 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| cust                   |
+| stu                    |
+| student                |
++------------------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|       2 | ADS       |
++---------+-----------+
+1 row in set (0.02 sec)
+
+mysql> TRUNCATE TABLE CUST;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> SELECT * FROM CUST;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES(101,'ABC');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CUST(CUST_NAME,CUST_ID) VALUES('XYZ',102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CUST(CUST_NAME,CUST_ID) VALUES(103,'QRS');
+ERROR 1366 (HY000): Incorrect integer value: 'QRS' for column 'CUST_ID' at row 1
+mysql> INSERT INTO CUS  VALUES(104,'TOMA');
+ERROR 1146 (42S02): Table 'iit14thbatch.cus' doesn't exist
+mysql> INSERT INTO CUST  VALUES(104,'TOMA');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUST  VALUES(105,'TINNI'),(106,'TOHA'),(107,'SUMI');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|     101 | ABC       |
+|     102 | XYZ       |
+|     104 | TOMA      |
+|     105 | TINNI     |
+|     106 | TOHA      |
+|     107 | SUMI      |
++---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO CUST  VALUES(106,'TINNI'),(106,'TULI');
+ERROR 1062 (23000): Duplicate entry '106' for key 'cust.uc_cust_id'
+mysql> DELETE FROM CUST WHERE CUST_ID=106;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT CUST_NAME FROM CUST;
++-----------+
+| CUST_NAME |
++-----------+
+| ABC       |
+| XYZ       |
+| TOMA      |
+| TINNI     |
+| SUMI      |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT CUST_ID FROM CUST;
++---------+
+| CUST_ID |
++---------+
+|     101 |
+|     102 |
+|     104 |
+|     105 |
+|     107 |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT CUST_NAME FROM CUST INTO OUTFILE 'C:\ICT-2204,DBMS LAB\test.txt';
+ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+mysql> UPDATE CUST SET CUST_NAME ='EFG' WHERE CUST_NAME=XYZ;
+ERROR 1054 (42S22): Unknown column 'XYZ' in 'where clause'
+mysql> UPDATE CUST SET CUST_NAME ='EFG' WHERE CUST_NAME='XYZ';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|     101 | ABC       |
+|     102 | EFG       |
+|     104 | TOMA      |
+|     105 | TINNI     |
+|     107 | SUMI      |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> NOTEE;
