@@ -1,0 +1,329 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user_information   |
+| world              |
++--------------------+
+8 rows in set (0.06 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| cust                   |
+| stu                    |
+| student                |
++------------------------+
+3 rows in set (0.01 sec)
+
+mysql> DESC STUDENT;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_ID   | int         | YES  |     | NULL    |       |
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| SESSION      | varchar(10) | YES  |     | NULL    |       |
+| CGPA         | float(5,2)  | YES  |     | NULL    |       |
+| GENDER       | varchar(7)  | YES  |     | NULL    |       |
+| MOBILEPHONE  | varchar(15) | YES  |     | NULL    |       |
+| EMAIL        | varchar(15) | YES  |     | NULL    |       |
+| DOB          | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> DSC CUST;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DSC CUST' at line 1
+mysql> DESC CUST;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| CUST_ID   | int         | YES  | UNI | NULL    |       |
+| CUST_NAME | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|     101 | ABC       |
+|     102 | EFG       |
+|     104 | TOMA      |
+|     105 | TINNI     |
+|     107 | SUMI      |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CUST ADD CUST_ADDRESS VARCHAR(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC CUST;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| CUST_ID      | int         | YES  | UNI | NULL    |       |
+| CUST_NAME    | varchar(10) | YES  |     | NULL    |       |
+| CUST_ADDRESS | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE CUST SET CUST_ADDRESS='GAIBANDHA' WHERE CUST_ID=101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE CUST SET CUST_ADDRESS='GOBINDOGANG' WHERE CUST_ID=102;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CUST;
++---------+-----------+--------------+
+| CUST_ID | CUST_NAME | CUST_ADDRESS |
++---------+-----------+--------------+
+|     101 | ABC       | GAIBANDHA    |
+|     102 | EFG       | GOBINDOGANG  |
+|     104 | TOMA      | NULL         |
+|     105 | TINNI     | NULL         |
+|     107 | SUMI      | NULL         |
++---------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CUST ADD CUST_PHONE VARCHAR(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM CUST;
++---------+-----------+--------------+------------+
+| CUST_ID | CUST_NAME | CUST_ADDRESS | CUST_PHONE |
++---------+-----------+--------------+------------+
+|     101 | ABC       | GAIBANDHA    | NULL       |
+|     102 | EFG       | GOBINDOGANG  | NULL       |
+|     104 | TOMA      | NULL         | NULL       |
+|     105 | TINNI     | NULL         | NULL       |
+|     107 | SUMI      | NULL         | NULL       |
++---------+-----------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CUST DROP COLUMN CUST_PHONE;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM CUST;
++---------+-----------+--------------+
+| CUST_ID | CUST_NAME | CUST_ADDRESS |
++---------+-----------+--------------+
+|     101 | ABC       | GAIBANDHA    |
+|     102 | EFG       | GOBINDOGANG  |
+|     104 | TOMA      | NULL         |
+|     105 | TINNI     | NULL         |
+|     107 | SUMI      | NULL         |
++---------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CUST ADD CONSTRAIN pk_CUST_ID PRIMARY KEY(CUST_ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk_CUST_ID PRIMARY KEY(CUST_ID)' at line 1
+mysql> ALTER TABLE CUST ADD CUST_PHONE VARCHAR(20);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE CUST ADD CONSTRAIN pk_CUST_PHONE PRIMARY KEY(CUST_PHONE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pk_CUST_PHONE PRIMARY KEY(CUST_PHONE)' at line 1
+mysql> ALTER TABLE CUST ADD CONSTRAINT pk_CUST_PHONE PRIMARY KEY (CUST_PHONE);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> CREATE TABLE EMPLOYEE(EMP_ID INT,EMP_NAME VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | YES  |     | NULL    |       |
+| EMP_NAME | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT pk_EMP_ID PRIMARY KEY (EMP_ID);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMPLOYEE ADD CUST_ID INT;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE CUST ADD CONSTRAINT pk_CUST_ID PRIMARY KEY (CUST_ID);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_EMP_CUST FOREIGN KEY(CUST_ID) REFERENCES CUST(CUST_ID);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | NO   | PRI | NULL    |       |
+| EMP_NAME | varchar(50) | YES  |     | NULL    |       |
+| CUST_ID  | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC CUST;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| CUST_ID      | int         | NO   | PRI | NULL    |       |
+| CUST_NAME    | varchar(10) | YES  |     | NULL    |       |
+| CUST_ADDRESS | varchar(20) | YES  |     | NULL    |       |
+| CUST_PHONE   | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE EMPLOYEE;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                           |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| EMPLOYEE | CREATE TABLE `employee` (
+  `EMP_ID` int NOT NULL,
+  `EMP_NAME` varchar(50) DEFAULT NULL,
+  `CUST_ID` int DEFAULT NULL,
+  PRIMARY KEY (`EMP_ID`),
+  KEY `fk_EMP_CUST` (`CUST_ID`),
+  CONSTRAINT `fk_EMP_CUST` FOREIGN KEY (`CUST_ID`) REFERENCES `cust` (`CUST_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE(EMP_ID,EMP_NAME,CUST_ID) VALUES (1, 'RAHIM', 101),(2, 'KARIM', 102),(3, 'RUMA', 104),(4, 'JONY', 105);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+---------+
+| EMP_ID | EMP_NAME | CUST_ID |
++--------+----------+---------+
+|      1 | RAHIM    |     101 |
+|      2 | KARIM    |     102 |
+|      3 | RUMA     |     104 |
+|      4 | JONY     |     105 |
++--------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN EMP_CODE INT PRIMARY KEY;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | NO   | PRI | NULL    |       |
+| EMP_NAME | varchar(50) | YES  |     | NULL    |       |
+| CUST_ID  | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE DROP COLUMN CUST_ID;
+ERROR 1828 (HY000): Cannot drop column 'CUST_ID': needed in a foreign key constraint 'fk_EMP_CUST'
+mysql> DROP TABLE EMPLOYEE;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE EMPLOYEE(EMP_ID INT,EMP_NAME VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE CUST(CUST_ID INT,CUST_NAME VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(1,'ABC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_EMP_ID PRIMARY KEY(EMP_ID,EMP_NAME);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | NO   | PRI | NULL    |       |
+| EMP_NAME | varchar(50) | NO   | PRI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO CUST VALUES(101,'ZYZ');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUST VALUES(102,'PQR');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(2,'TOMA');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+
+| EMP_ID | EMP_NAME |
++--------+----------+
+|      1 | ABC      |
+|      2 | TOMA     |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|     101 | ZYZ       |
+|     102 | PQR       |
++---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EMP_ID,EMP_NAME, CUST_ID,CUST_NAME FROM EMPLOYEE,CUST;
++--------+----------+---------+-----------+
+| EMP_ID | EMP_NAME | CUST_ID | CUST_NAME |
++--------+----------+---------+-----------+
+|      2 | TOMA     |     101 | ZYZ       |
+|      1 | ABC      |     101 | ZYZ       |
+|      2 | TOMA     |     102 | PQR       |
+|      1 | ABC      |     102 | PQR       |
++--------+----------+---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE HALL(HALL_ID INT,HALL_NAME VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE COURSES(COURSE_ID INT,COURSE_NAME VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO HALL VALUES(10,'SUFIA KAMAL');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO HALL VALUES(11,'PRITILOTA');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO COURSES (COURSE_ID,COURSE_NAME) SELECT HALL_ID,HALL_NAME FROM HALL;
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM HALL;
++---------+-------------+
+| HALL_ID | HALL_NAME   |
++---------+-------------+
+|      10 | SUFIA KAMAL |
+|      11 | PRITILOTA   |
++---------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> NOTEE;
