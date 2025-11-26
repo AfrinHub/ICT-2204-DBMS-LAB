@@ -1,0 +1,491 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| lab_exam           |
+| lab_quiz_01_1962   |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user_information   |
+| world              |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| customer               |
+| employee               |
+| hall                   |
+| stu                    |
+| student                |
++------------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMER;
++---------+-----------+---------------+
+| CUST_ID | CUST_NAME | CUSTOMER_CODE |
++---------+-----------+---------------+
+|     101 | ZYZ       | ABC123        |
+|     102 | PQR       | XYZ123        |
++---------+-----------+---------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      2 | TOMA     |  50000 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM HALL;
++---------+-------------+-------+
+| HALL_ID | HALL_NAME   | ST_ID |
++---------+-------------+-------+
+|      10 | SUFIA KAMAL |   102 |
+|      11 | PRITILOTA   |   103 |
+|      12 | ABC         |   102 |
+|      13 | XYZ         |  NULL |
+|      20 | PQR         |  NULL |
+|      12 | HALL        |   102 |
+|      11 | KAMAL       |   103 |
+|      20 | SUFIA       |  NULL |
++---------+-------------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STU;
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      1 | ASD      |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> DESC CUSTOMER;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| CUST_ID       | int         | YES  |     | NULL    |       |
+| CUST_NAME     | varchar(50) | YES  |     | NULL    |       |
+| CUSTOMER_CODE | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | NO   | PRI | NULL    |       |
+| EMP_NAME | varchar(50) | NO   | PRI | NULL    |       |
+| SALARY   | int         | YES  |     | 50000   |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE DROP PRIMARY KEY;
+Query OK, 2 rows affected (0.07 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | NO   |     | NULL    |       |
+| EMP_NAME | varchar(50) | NO   |     | NULL    |       |
+| SALARY   | int         | YES  |     | 50000   |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT EMP_NAME ,CONVERT(SALARY,CHAR) SALARY FROM EMPLOYEE;
++----------+--------+
+| EMP_NAME | SALARY |
++----------+--------+
+| ABC      | 60000  |
+| TOMA     | 50000  |
++----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EMP_ID,EMP_NAME ,CONVERT(SALARY,CHAR) SALARY FROM EMPLOYEE;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      | 60000  |
+|      2 | TOMA     | 50000  |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT CONVERT("2025-03-17",DATE);
++----------------------------+
+| CONVERT("2025-03-17",DATE) |
++----------------------------+
+| 2025-03-17                 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EMP_ID,EMP_NAME ,CONVERT(SALARY,DECIMAL(10,2)) SALARY FROM EMPLOYEE;
++--------+----------+----------+
+| EMP_ID | EMP_NAME | SALARY   |
++--------+----------+----------+
+|      1 | ABC      | 60000.00 |
+|      2 | TOMA     | 50000.00 |
++--------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EMP_ID,EMP_NAME ,CONVERT(SALARY,DECIMAL(8,2)) SALARY FROM EMPLOYEE;
++--------+----------+----------+
+| EMP_ID | EMP_NAME | SALARY   |
++--------+----------+----------+
+|      1 | ABC      | 60000.00 |
+|      2 | TOMA     | 50000.00 |
++--------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT EMP_ID,EMP_NAME ,CONVERT(SALARY,DECIMAL(5,2)) SALARY FROM EMPLOYEE;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      | 999.99 |
+|      2 | TOMA     | 999.99 |
++--------+----------+--------+
+2 rows in set, 2 warnings (0.00 sec)
+
+mysql> SELECT ABS(-1);
++---------+
+| ABS(-1) |
++---------+
+|       1 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MOD(8,2);
++----------+
+| MOD(8,2) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FLOOR(5.8);
++------------+
+| FLOOR(5.8) |
++------------+
+|          5 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CEIL(5.8);
++-----------+
+| CEIL(5.8) |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT POWER(3,2);
++------------+
+| POWER(3,2) |
++------------+
+|          9 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ROUND(7.8);
++------------+
+| ROUND(7.8) |
++------------+
+|          8 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SQRT(25);
++----------+
+| SQRT(25) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SQRT(17);
++-------------------+
+| SQRT(17)          |
++-------------------+
+| 4.123105625617661 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY >ALL(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>1000);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      2 | TOMA     |  50000 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY >ALL(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>1);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
++--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY >ALL(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>0);
+Empty set (0.00 sec)
+
+mysql> SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>0;
++--------+
+| SALARY |
++--------+
+|  60000 |
+|  50000 |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>1;
++--------+
+| SALARY |
++--------+
+|  50000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY >ALL(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>1);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
++--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE(EMP_ID,EMP_NAME,SALARY) VALUES(3,'XYZ',70000),(4,'PQR',40000);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY >ALL(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID=1);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      3 | XYZ      |  70000 |
++--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY >ANY(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID>1);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      2 | TOMA     |  50000 |
+|      3 | XYZ      |  70000 |
++--------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      2 | TOMA     |  50000 |
+|      3 | XYZ      |  70000 |
+|      4 | PQR      |  40000 |
++--------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY BETWEEN 4000 AND 5000;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY BETWEEN 4000 AND 6000;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY BETWEEN 40000 AND 60000;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      2 | TOMA     |  50000 |
+|      4 | PQR      |  40000 |
++--------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY IN( 40000 ,60000);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      4 | PQR      |  40000 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE EMP_NAME LIKE 'Y%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE EMP_NAME LIKE 'A%';
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
++--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE EMP_NAME LIKE '_A%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE EMP_NAME LIKE '_B%';
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
++--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE EMP_NAME LIKE '__B%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE EMP_NAME LIKE '_B_C%';
+Empty set (0.00 sec)
+
+mysql>  SELECT * FROM EMPLOYEE WHERE SALARY =ANY(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID=2);
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      2 | TOMA     |  50000 |
++--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT * FROM EMPLOYEE WHERE SALARY =IN(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID=2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IN(SELECT SALARY FROM EMPLOYEE WHERE EMP_ID=2)' at line 1
+mysql> SELECT * FROM STU;
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      1 | ASD      |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO STU(2,'AXY');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2,'AXY')' at line 1
+mysql> INSERT INTO STU VALUES(2,'AXY');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STU VALUES(3,'TOHA');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STU VALUES(4,'TBG'),(5,'XYS');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE STU ADD CONSTRAINT pk_st_id primary key(st_id);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> DESC STU;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| STU_ID   | int         | NO   | PRI | NULL    |       |
+| STU_NAME | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN ST_ID INT ;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_st_id FOREIGN KEY(ST_ID) REFERENCES STU (ST_ID);
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'ST_ID' for constraint 'fk_st_id' in the referenced table 'stu'
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_st_id FOREIGN KEY(ST_ID) REFERENCES STU (STU_ID);
+Query OK, 4 rows affected (0.06 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STU WHERE STU_ID IN (SELECT ST_ID FROM EMPLOYEE WHERE SALARY=50000);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+-------+
+| EMP_ID | EMP_NAME | SALARY | ST_ID |
++--------+----------+--------+-------+
+|      1 | ABC      |  60000 |  NULL |
+|      2 | TOMA     |  50000 |  NULL |
+|      3 | XYZ      |  70000 |  NULL |
+|      4 | PQR      |  40000 |  NULL |
++--------+----------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STU;
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      1 | ASD      |
+|      2 | AXY      |
+|      3 | TOHA     |
+|      4 | TBG      |
+|      5 | XYS      |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET ST_ID=1 WHERE EMP_ID=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE SET ST_ID=2 WHERE EMP_ID=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE SET ST_ID=3 WHERE EMP_ID=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE SET ST_ID=4 WHERE EMP_ID=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM STU WHERE STU_ID IN (SELECT ST_ID FROM EMPLOYEE WHERE SALARY=50000);
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      2 | AXY      |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+-------+
+| EMP_ID | EMP_NAME | SALARY | ST_ID |
++--------+----------+--------+-------+
+|      1 | ABC      |  60000 |     1 |
+|      2 | TOMA     |  50000 |     2 |
+|      3 | XYZ      |  70000 |     3 |
+|      4 | PQR      |  40000 |     4 |
++--------+----------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STU WHERE STU_ID IN (SELECT ST_ID FROM EMPLOYEE WHERE SALARY=50000);
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      2 | AXY      |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE ST_ID IN (SELECT ST_ID FROM EMPLOYEE WHERE SALARY=50000);
+ERROR 1146 (42S02): Table 'iit14thbatch.emp' doesn't exist
+mysql> SELECT * FROM STU;
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      1 | ASD      |
+|      2 | AXY      |
+|      3 | TOHA     |
+|      4 | TBG      |
+|      5 | XYS      |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE ST_ID >SOME (SELECT ST_ID FROM EMPLOYEE WHERE SALARY=50000);
+ERROR 1146 (42S02): Table 'iit14thbatch.emp' doesn't exist
+mysql> NOTEE;
