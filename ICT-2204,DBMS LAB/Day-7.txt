@@ -1,0 +1,303 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| lab_exam           |
+| lab_quiz_01_1962   |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user_information   |
+| world              |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use iit14thbatch;
+Database changed
+mysql> SHOW TABTES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABTES' at line 1
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| customer               |
+| employee               |
+| hall                   |
+| stu                    |
+| student                |
++------------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT DATE("2025-06-15");
++--------------------+
+| DATE("2025-06-15") |
++--------------------+
+| 2025-06-15         |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE("2025-06-15") AS RANDOMDATE;
++------------+
+| RANDOMDATE |
++------------+
+| 2025-06-15 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMATE("2025-06-15","%Y");
+ERROR 1305 (42000): FUNCTION iit14thbatch.DATE_FORMATE does not exist
+mysql> SELECT DATE_FORMAT("2025-06-15","%Y");
++--------------------------------+
+| DATE_FORMAT("2025-06-15","%Y") |
++--------------------------------+
+| 2025                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF("2025-06-15","2025-01-03");
++-------------------------------------+
+| DATEDIFF("2025-06-15","2025-01-03") |
++-------------------------------------+
+|                                 163 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2025-06-15","%D");
++--------------------------------+
+| DATE_FORMAT("2025-06-15","%D") |
++--------------------------------+
+| 15th                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2025-06-15","%M");
++--------------------------------+
+| DATE_FORMAT("2025-06-15","%M") |
++--------------------------------+
+| June                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2025-06-15","%m");
++--------------------------------+
+| DATE_FORMAT("2025-06-15","%m") |
++--------------------------------+
+| 06                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2025-06-15","%d");
++--------------------------------+
+| DATE_FORMAT("2025-06-15","%d") |
++--------------------------------+
+| 15                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2025-06-15","%y");
++--------------------------------+
+| DATE_FORMAT("2025-06-15","%y") |
++--------------------------------+
+| 25                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD("2025-06-15",INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_ADD("2025-06-15",INTERVAL 10 DAY) |
++----------------------------------------+
+| 2025-06-25                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_SUB("2025-06-15",INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_SUB("2025-06-15",INTERVAL 10 DAY) |
++----------------------------------------+
+| 2025-06-05                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE ("2017-05 09:34:21");
++---------------------------+
+| DATE ("2017-05 09:34:21") |
++---------------------------+
+| NULL                      |
++---------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT DATE(CURDATE());
++-----------------+
+| DATE(CURDATE()) |
++-----------------+
+| 2025-11-25      |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH("2017-05-01");
++--------------------------+
+| DAYOFMONTH("2017-05-01") |
++--------------------------+
+|                        1 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK("2017-05-01");
++-------------------------+
+| DAYOFWEEK("2017-05-01") |
++-------------------------+
+|                       2 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR("2017-05-01");
++-------------------------+
+| DAYOFYEAR("2017-05-01") |
++-------------------------+
+|                     121 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME("2017-05-01");)
++-----------------------+
+| DAYNAME("2017-05-01") |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> SELECT DAYNAME("2017-05-01");
++-----------------------+
+| DAYNAME("2017-05-01") |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2025-11-25 12:37:27 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE()+1;
++----------------+
+| SYSDATE()+1    |
++----------------+
+| 20251125123744 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SLECT LENGTH("INFORMATION");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SLECT LENGTH("INFORMATION")' at line 1
+mysql> SELECT LENGTH("INFORMATION");
++-----------------------+
+| LENGTH("INFORMATION") |
++-----------------------+
+|                    11 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INSTR("INFORMATION");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'INSTR'
+mysql> SELECT INSTR("INFORMATION","F");
++--------------------------+
+| INSTR("INFORMATION","F") |
++--------------------------+
+|                        3 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UCASE("INFORMATION");
++----------------------+
+| UCASE("INFORMATION") |
++----------------------+
+| INFORMATION          |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LCASE("INFORMATION");
++----------------------+
+| LCASE("INFORMATION") |
++----------------------+
+| information          |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTR("INFORMATION",3,5);
++---------------------------+
+| SUBSTR("INFORMATION",3,5) |
++---------------------------+
+| FORMA                     |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("INFORMATION",12,'@');
++----------------------------+
+| LPAD("INFORMATION",12,'@') |
++----------------------------+
+| @INFORMATION               |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RPAD("INFORMATION",12,'@');
++----------------------------+
+| RPAD("INFORMATION",12,'@') |
++----------------------------+
+| INFORMATION@               |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN SALARY INT DEFAULT 50000;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  50000 |
+|      2 | TOMA     |  50000 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET SALARY=60000 WHERE EMP_ID=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+
+| EMP_ID | EMP_NAME | SALARY |
++--------+----------+--------+
+|      1 | ABC      |  60000 |
+|      2 | TOMA     |  50000 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT  EMP_NAME, CONVERT(SALARY,CHAR) SALARY FROM EMPLOYEE; 
++----------+--------+
+| EMP_NAME | SALARY |
++----------+--------+
+| ABC      | 60000  |
+| TOMA     | 50000  |
++----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int         | NO   | PRI | NULL    |       |
+| EMP_NAME | varchar(50) | NO   | PRI | NULL    |       |
+| SALARY   | int         | YES  |     | 50000   |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> NOTEE;
