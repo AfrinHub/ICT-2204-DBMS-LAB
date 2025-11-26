@@ -1,0 +1,330 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| lab_exam           |
+| lab_quiz_01_1962   |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| user_information   |
+| world              |
++--------------------+
+10 rows in set (0.06 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| customer               |
+| employee               |
+| hall                   |
+| stu                    |
+| student                |
++------------------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM HALL;
++---------+-------------+
+| HALL_ID | HALL_NAME   |
++---------+-------------+
+|      10 | SUFIA KAMAL |
+|      11 | PRITILOTA   |
++---------+-------------+
+2 rows in set (0.02 sec)
+
+mysql> SELECT * FROM STU;
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      1 | ASD      |
++--------+----------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+
+| EMP_ID | EMP_NAME |
++--------+----------+
+|      1 | ABC      |
+|      2 | TOMA     |
++--------+----------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM HALL 
+    -> UNION 
+    -> SELECT * FROM EMPLOYEE; 
++---------+-------------+
+| HALL_ID | HALL_NAME   |
++---------+-------------+
+|      10 | SUFIA KAMAL |
+|      11 | PRITILOTA   |
+|       1 | ABC         |
+|       2 | TOMA        |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS WHERE CONSTRAINT_SCHEMA='IIT14THBATCH'; 
+Empty set (0.00 sec)
+
+mysql> SHOW INDEXES IN CUSTOMER;
+Empty set (0.00 sec)
+
+mysql> SELECT AVG(HALL_ID) FROM HALL;
++--------------+
+| AVG(HALL_ID) |
++--------------+
+|      10.5000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(HALL_ID) FROM HALL;
++----------------+
+| COUNT(HALL_ID) |
++----------------+
+|              2 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(HALL_ID) FROM HALL;
++--------------+
+| SUM(HALL_ID) |
++--------------+
+|           21 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(HALL_ID) FROM HALL;
++--------------+
+| MIN(HALL_ID) |
++--------------+
+|           10 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(HALL_ID) FROM HALL;
++--------------+
+| MAX(HALL_ID) |
++--------------+
+|           11 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(HALL_ID) FROM HALL WHERE HALL_ID>10;
++--------------+
+| AVG(HALL_ID) |
++--------------+
+|      11.0000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(HALL_ID) FROM HALL WHERE HALL_ID>=10;
++--------------+
+| AVG(HALL_ID) |
++--------------+
+|      10.5000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(HALL_ID) FROM HALL WHERE HALL_ID>=10;
++--------------+
+| MAX(HALL_ID) |
++--------------+
+|           11 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(HALL_ID) FROM HALL WHERE HALL_ID>=10;
++--------------+
+| MIN(HALL_ID) |
++--------------+
+|           10 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO HALL(HALL_ID,HALL_NAME) VALUES (12,'ABC'),(13.'XYZ'),(20,'PQR');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''XYZ'),(20,'PQR')' at line 1
+mysql> INSERT INTO HALL(HALL_ID,HALL_NAME) VALUES (12,'ABC'),(13,'XYZ'),(20,'PQR');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT MIN(HALL_ID) FROM HALL WHERE HALL_ID>=10;
++--------------+
+| MIN(HALL_ID) |
++--------------+
+|           10 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(HALL_ID) FROM HALL WHERE HALL_ID>=10;
++--------------+
+| MAX(HALL_ID) |
++--------------+
+|           20 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(HALL_ID) FROM HALL WHERE HALL_ID>=10;
++--------------+
+| AVG(HALL_ID) |
++--------------+
+|      13.2000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM HALL;
++---------+-------------+
+| HALL_ID | HALL_NAME   |
++---------+-------------+
+|      10 | SUFIA KAMAL |
+|      11 | PRITILOTA   |
+|      12 | ABC         |
+|      13 | XYZ         |
+|      20 | PQR         |
++---------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO HALL(HALL_ID,HALL_NAME) VALUES (12,'HALL'),(11,'KAMAL'),(20,'SUFIA');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT DISTINCT(HALL_ID) FROM HALL;
++---------+
+| HALL_ID |
++---------+
+|      10 |
+|      11 |
+|      12 |
+|      13 |
+|      20 |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM HALL;
++---------+-------------+
+| HALL_ID | HALL_NAME   |
++---------+-------------+
+|      10 | SUFIA KAMAL |
+|      11 | PRITILOTA   |
+|      12 | ABC         |
+|      13 | XYZ         |
+|      20 | PQR         |
+|      12 | HALL        |
+|      11 | KAMAL       |
+|      20 | SUFIA       |
++---------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT HALL_ID) FROM HALL;
++-------------------------+
+| COUNT(DISTINCT HALL_ID) |
++-------------------------+
+|                       5 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE HALL ADD COLUMN ST_ID INT ;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE HALL SET ST_ID=102 WHERE HALL_ID=10;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE HALL SET ST_ID=103 WHERE HALL_ID=11;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE HALL SET ST_ID=103 WHERE HALL_ID=12;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE HALL SET ST_ID=102 WHERE HALL_ID=12;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT ST_ID, COUNT(HALL_ID) FROM HALL GROUP BY ST_ID; 
++-------+----------------+
+| ST_ID | COUNT(HALL_ID) |
++-------+----------------+
+|   102 |              3 |
+|   103 |              2 |
+|  NULL |              3 |
++-------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(HALL_ID) FROM HALL GROUP BY ST_ID; 
++----------------+
+| COUNT(HALL_ID) |
++----------------+
+|              3 |
+|              2 |
+|              3 |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT HALL_NAME, COUNT(HALL_ID) FROM HALL GROUP BY HALL_NAME; 
++-------------+----------------+
+| HALL_NAME   | COUNT(HALL_ID) |
++-------------+----------------+
+| SUFIA KAMAL |              1 |
+| PRITILOTA   |              1 |
+| ABC         |              1 |
+| XYZ         |              1 |
+| PQR         |              1 |
+| HALL        |              1 |
+| KAMAL       |              1 |
+| SUFIA       |              1 |
++-------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT HALL_NAME, COUNT(HALL_ID) FROM HALL GROUP BY HALL_NAME ORDER BY HALL_NAME ASC; 
++-------------+----------------+
+| HALL_NAME   | COUNT(HALL_ID) |
++-------------+----------------+
+| ABC         |              1 |
+| HALL        |              1 |
+| KAMAL       |              1 |
+| PQR         |              1 |
+| PRITILOTA   |              1 |
+| SUFIA       |              1 |
+| SUFIA KAMAL |              1 |
+| XYZ         |              1 |
++-------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT ST_ID, COUNT(HALL_ID) FROM HALL GROUP BY ST_ID ORDER BY ST_ID ASC; 
++-------+----------------+
+| ST_ID | COUNT(HALL_ID) |
++-------+----------------+
+|  NULL |              3 |
+|   102 |              3 |
+|   103 |              2 |
++-------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT HALL_NAME, COUNT(HALL_ID) FROM HALL GROUP BY HALL_NAME ORDER BY HALL_NAME DSC; 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DSC' at line 1
+mysql> SELECT HALL_NAME, COUNT(HALL_ID) FROM HALL GROUP BY HALL_NAME ORDER BY HALL_NAME DESC; 
++-------------+----------------+
+| HALL_NAME   | COUNT(HALL_ID) |
++-------------+----------------+
+| XYZ         |              1 |
+| SUFIA KAMAL |              1 |
+| SUFIA       |              1 |
+| PRITILOTA   |              1 |
+| PQR         |              1 |
+| KAMAL       |              1 |
+| HALL        |              1 |
+| ABC         |              1 |
++-------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT ST_ID, COUNT(HALL_ID) FROM HALL GROUP BY ST_ID  HAVING COUNT(ST_ID)>10 ORDER BY ST_ID ASC; 
+Empty set (0.00 sec)
+
+mysql> NOTEE;
