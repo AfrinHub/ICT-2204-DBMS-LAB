@@ -1,0 +1,107 @@
+mysql> CREATE TABLE CUSTOMER(CustomerID INT PRIMARY KEY,CustomerName VARCHAR(50),City VARCHAR(30), Age INT, JoinDate date ) ;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Customer (CUSTOMERID, CustomerName, City, Age, JoinDate)
+    -> VALUES
+    -> (1, 'Rahim Uddin', 'Dhaka', 28, '2023-01-10'),
+    -> (2, 'Karim Hasan', 'Chittagong', 35, '2023-02-15'),
+    -> (3, 'Sara Akter', 'Dhaka', 24, '2023-03-20'),
+    -> (4, 'Nusrat Jahan', 'Sylhet', 30, '2023-04-05'),
+    -> (5, 'Imran Hossain', 'Dhaka', 40, '2023-05-12');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT CustomerName, City
+    -> FROM Customer
+    -> WHERE City = 'Dhaka';
++---------------+-------+
+| CustomerName  | City  |
++---------------+-------+
+| Rahim Uddin   | Dhaka |
+| Sara Akter    | Dhaka |
+| Imran Hossain | Dhaka |
++---------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE CUSTOMER 
+    -> ADD COLUMN Phone varchar(15);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++----------------+
+| Tables_in_mahi |
++----------------+
+| customer       |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> select * from customer;
++------------+---------------+------------+------+------------+-------+
+| CustomerID | CustomerName  | City       | Age  | JoinDate   | Phone |
++------------+---------------+------------+------+------------+-------+
+|          1 | Rahim Uddin   | Dhaka      |   28 | 2023-01-10 | NULL  |
+|          2 | Karim Hasan   | Chittagong |   35 | 2023-02-15 | NULL  |
+|          3 | Sara Akter    | Dhaka      |   24 | 2023-03-20 | NULL  |
+|          4 | Nusrat Jahan  | Sylhet     |   30 | 2023-04-05 | NULL  |
+|          5 | Imran Hossain | Dhaka      |   40 | 2023-05-12 | NULL  |
++------------+---------------+------------+------+------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Customer
+    -> MODIFY CustomerName VARCHAR(100) NOT NULL;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| CustomerID   | int          | NO   | PRI | NULL    |       |
+| CustomerName | varchar(100) | NO   |     | NULL    |       |
+| City         | varchar(30)  | YES  |     | NULL    |       |
+| Age          | int          | YES  |     | NULL    |       |
+| JoinDate     | date         | YES  |     | NULL    |       |
+| Phone        | varchar(15)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Customer
+    -> MODIFY CustomerName VARCHAR(100) NULL;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc CUSTOMER ;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| CustomerID   | int          | NO   | PRI | NULL    |       |
+| CustomerName | varchar(100) | YES  |     | NULL    |       |
+| City         | varchar(30)  | YES  |     | NULL    |       |
+| Age          | int          | YES  |     | NULL    |       |
+| JoinDate     | date         | YES  |     | NULL    |       |
+| Phone        | varchar(15)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select COUNT(City)
+    -> FROM CUSTOMAR GROUP BY City 
+    -> COUNT(City) > 3 
+    -> ORDER BY City;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COUNT(City) > 3 
+ORDER BY City' at line 3
+mysql> SELECT 
+    ->     City,
+    ->     COUNT(*) AS NumberOfCustomers
+    -> FROM Customer
+    -> GROUP BY City
+    -> HAVING COUNT(*) >= 3
+    -> ORDER BY City ASC;
++-------+-------------------+
+| City  | NumberOfCustomers |
++-------+-------------------+
+| Dhaka |                 3 |
++-------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> notee;
